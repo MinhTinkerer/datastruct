@@ -63,7 +63,7 @@ void  list_insert_before(list_t *list, list_node_t *cur, void *item) {
     cur->prev  = node;
   }
 }
-    
+
 void  list_insert_after(list_t *list, list_node_t *cur, void *item) {
   if (cur == NULL) { list_push(list, item); return; }
 
@@ -88,6 +88,34 @@ void  list_insert_after(list_t *list, list_node_t *cur, void *item) {
     next->prev = node;
     cur->next  = node;
   }
+}
+
+void* list_split(list_t* list, list_node_t* node, list_t* left, list_t* right) {
+    list_init(left);
+    list_init(right);
+
+    list_node_t* prev = node->prev;
+    list_node_t* next = node->next;
+    void*        item = node->item;
+    free(node);
+
+    if (prev) {
+        prev->next   = NULL;
+
+        left->first  = list->first;
+        left->last   = prev;
+    }
+    if (next) {
+        next->prev   = NULL;
+
+        right->first = next;
+        right->last  = list->last;
+    }
+
+    list->first = NULL;
+    list->last  = NULL;
+
+    return item;
 }
 
 void* list_remove(list_t *list, list_node_t *cur) {
