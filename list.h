@@ -44,6 +44,8 @@ static inline void* list_item(list_node_t *node) {
   return node->item;
 }
 
+typedef void (*list_dealloc_cb)(void*)
+
 /* Push and pop are for LIFO stack-like behavior (use list_insert_after with list_last for queues) */
 void  list_push(list_t *list, void *item);
 void* list_pop(list_t *list);
@@ -51,6 +53,7 @@ void  list_insert_before(list_t *list, list_node_t *cur, void *item);
 void  list_insert_after(list_t *list, list_node_t *cur, void *item);
 void* list_split(list_t* list, list_node_t* node, list_t* left, list_t* right);
 void* list_remove(list_t *list, list_node_t *cur);
+void  list_clear(list_t *list, list_dealloc_cb dealloc);  /* MUST be called before discarding a list_t structure */
 
 #endif /* LIST_H */
 

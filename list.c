@@ -134,4 +134,9 @@ void* list_remove(list_t *list, list_node_t *cur) {
   return item;
 }
 
+void list_clear(list_t *list, list_dealloc_cb dealloc) {
+  void* item;
+  while ((item = list_pop(list)) != NULL) dealloc(item);
+}
+
 /* vim: set ts=2 sts=2 sw=2 et ft=c tw=120: */
