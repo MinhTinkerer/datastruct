@@ -36,6 +36,13 @@ static inline int list_isempty(list_t *list) {
   return list->first == NULL;
 }
 
+static inline int list_count(list_t* list) {
+  if (list->first == NULL) return 0;
+  int n = 1;
+  for (list_node_t* node = list->first; node->next != NULL; node = node->next) n++;
+  return n;
+}
+
 static inline list_node_t* list_next(list_node_t *node) {
   return node->next;
 }
