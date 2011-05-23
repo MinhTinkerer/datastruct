@@ -32,6 +32,10 @@ static inline list_node_t* list_last(list_t *list) {
   return list->last;
 }
 
+static inline int list_isempty(list_t *list) {
+  return list->first == NULL;
+}
+
 static inline list_node_t* list_next(list_node_t *node) {
   return node->next;
 }
@@ -54,6 +58,9 @@ void  list_insert_after(list_t *list, list_node_t *cur, void *item);
 void* list_split(list_t* list, list_node_t* node, list_t* left, list_t* right);
 void* list_remove(list_t *list, list_node_t *cur);
 void  list_clear(list_t *list, list_dealloc_cb dealloc);  /* MUST be called before discarding a list_t structure */
+
+#define LIST_FOREACH(list, node) \
+  for ((node)=list_first(list); list_next(node) != NULL; (node)=list_next(node))
 
 #endif /* LIST_H */
 
