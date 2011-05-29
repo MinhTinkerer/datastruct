@@ -112,10 +112,21 @@ void* list_split(list_t* list, list_node_t* node, list_t* left, list_t* right) {
         right->last  = list->last;
     }
 
-    list->first = NULL;
-    list->last  = NULL;
+    list_init(list);
 
     return item;
+}
+
+void  list_concat(list_t *list, list_t *left, list_t *right) {
+  list_init(list);
+
+  list->first = left->first;
+  list->last  = right->last;
+  left->last->next   = right->first;
+  right->first->prev = left->last;
+
+  list_init(left);
+  list_init(right);
 }
 
 void* list_remove(list_t *list, list_node_t *cur) {
