@@ -120,6 +120,19 @@ void* list_split(list_t* list, list_node_t* node, list_t* left, list_t* right) {
 void  list_concat(list_t *list, list_t *left, list_t *right) {
   list_init(list);
 
+  if (list_isempty(left)) {
+    list->first = right->first;
+    list->last  = right->last;
+    list_init(right);
+    return;
+  }
+  if (list_isempty(right)) {
+    list->first = left->first;
+    list->last  = left->last;
+    list_init(left);
+    return;
+  }
+
   list->first = left->first;
   list->last  = right->last;
   left->last->next   = right->first;
