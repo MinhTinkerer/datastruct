@@ -24,6 +24,11 @@ static inline void list_init(list_t *list) {
   list->last  = NULL;
 }
 
+static inline void* list_peek(list_t *list) {
+  if (list->first == NULL) return NULL;
+  return list->first->item;
+}
+
 static inline list_node_t* list_first(list_t *list) {
   return list->first;
 }
